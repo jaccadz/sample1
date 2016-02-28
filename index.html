@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="columbiaApp">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>COLUMBIA</title>
+          <link href="css/bootstrap.min.css" rel="stylesheet">
+                
+  </head>
+
+  <body ng-controller="SearchCtrl">
+	<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">COLUMBIA</a>
+        </div>
+
+        
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Inquire Job Order  <span class="sr-only">(current)</span></a></li>
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">wohohohohoh</a></li>
+                        <li><a href="#">wohohohohoh 2</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">wohohohohoh dfssdfds</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">what do you think?</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+
+    <div class="page-content">
+	
+	<div class="col-sm-2">
+		
+	</div>
+	
+	<div class="col-sm-8">
+		<div class="row">
+		<div class="space-6"></div>
+		<div class="col-sm-10 col-sm-offset-1">
+		  <div id="login-box" class="login-box visible widget-box no-border">
+			<div class="widget-body">
+
+			  <div class="widget-main">
+				<h4 class="header blue lighter bigger">
+				  <i class="icon-coffee green"></i>
+				  Enter Job Order No. and your last name
+				</h4>
+
+				<!--<div class="space-16"></div>-->
+
+				<form name="inquireForm" class="form-horizontal" role="form">
+				  <div class="form-group">
+					<label class="col-sm-4 control-label no-padding-right" for="jono"> Job Order Number </label>
+					<div class="col-sm-6">
+							   <span class="block input-icon input-icon-right">
+									<input type="text" class="form-control" placeholder="Job Order Number" name="jono" ng-model="keywords" required focus/>
+
+								</span>
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label class="col-sm-4 control-label no-padding-right" for="lname"> Lastname </label>
+					<div class="col-sm-6">
+							   <span class="block input-icon input-icon-right">
+									<input type="text" class="form-control" placeholder="Last Name" ng-model="lname" required/>
+
+								</span>
+					</div>
+				  </div>
+				  <div class="space"></div>
+				  <div class="clearfix">
+					<div class="row">
+					  <label class="col-sm-3 control-label no-padding-right"> </label>
+					  <div class="col-sm-7">
+						<button class="width-35 pull-right btn btn-sm btn-primary" ng-click="search()">
+						  Search
+						</button>
+					  </div>
+					</div>
+				  </div>
+				  <div class="space-4"></div>
+				</form>
+
+
+
+			  </div>
+
+
+			</div>
+		  </div>
+
+		</div>
+		</div>
+	  
+	  <div class="row" style="margin-top:20px;">
+
+       <!--<div data-ng-view="" id="ng-view"></div> -->
+		
+		
+		<div ng-controller="SearchCtrl" class="well">
+			<h4 class="header blue lighter bigger" >
+              <i class="icon-coffee green"></i>
+              Job Order Information
+            </h4>	
+			<!--
+			<pre ng-model="srTotals">
+				{{srTotals}} 
+				
+			</pre>
+			-->
+
+			<div class="well">
+				<p ng-repeat="jo in searchJOresult" class="row"><span class="col-sm-3 control-label no-padding-right">Job order number: </span> <label class="col-sm-9">{{jo.jo_no}}</label></p>
+				<p ng-repeat="jo in searchJOresult" class="row"><span class="col-sm-3">Person: </span> <label class="col-sm-9"> {{jo.jo_fullname}}</label></p>
+				<p ng-repeat="jo in searchJOresult" class="row"><span class="col-sm-3">Status: </span> <label class="col-sm-9"> {{jo.status}}</label></p>
+			</div>
+			
+			<h4 class="header blue lighter bigger" >
+              <i class="icon-coffee green"></i>
+              Item(s) Information
+            </h4>
+			
+			<div class="well">
+				<div ng-repeat="jod in joDetailsResult" class="row">
+				<hr style="border-width: 3px; "/>
+					<span class="col-sm-3">Qty - Item:</span> <label class="col-sm-9">{{jod.jod_qty}} - {{jod.jod_item}}</label>
+					<span class="col-sm-3">Serial </span> <label class="col-sm-9">{{jod.jod_serial}}</label>
+					<span class="col-sm-3">Complaint </span> <label class="col-sm-9">{{jod.jod_complaint}}</label>
+					<span class="col-sm-3">Item Description </span> <label class="col-sm-9" style="font-family: consolas;"><textarea cols="45" rows="7" ng-model="jod.jod_itemDesc"></textarea> </label>
+					<div class="row"> <hr></div>
+				</div>
+			
+			</div>
+			
+			<h4 class="header blue lighter bigger" >
+              <i class="icon-coffee green"></i>
+              Service Report
+            </h4>
+			
+			<div class="well">
+				<div ng-repeat="sr in joServiceReportResult" class="row">
+					<hr style="border-width: 3px; "/>
+					<span class="col-sm-3">Service Report</span> <label class="col-sm-9">{{sr.sr_name}}</label>
+					<span class="col-sm-3">Parts </span> <label class="col-sm-9">{{sr.sr_parts}}</label>
+					<span class="col-sm-3">Amount </span> <label class="col-sm-9">{{sr.sr_amount}}</label>
+					
+				</div>
+				<br/><br/>
+				<div class="row" ng-repeat="total in srTotals">
+					<span class="col-sm-3">Totals </span><label class="col-sm-9">{{total.totals}}</label> </div>
+			</div>
+			
+			
+
+      </div>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	</div> <!--div sm-8 -->
+	
+	<div class="col-sm-2">
+		
+	</div>
+
+  <!--
+  <input type="text" class="form-control" placeholder="Last Name" ng-model="order.jo_lname" required/>
+  <input type="text" class="form-control" placeholder="Last Name" ng-model="order.jo_no" required/>
+  
+  
+  <table class="table table-striped table-bordered">
+        <thead>
+        <th>JO No&nbsp;</th>
+        <th>Name&nbsp;</th>
+        </thead>
+        <tbody> 
+            <tr ng-repeat="data in order">
+                <td>{{data.jo_no}}</td>
+                <td>{{data.jo_lname}}</td>
+            </tr> 
+        </tbody>
+        </table>
+		-->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+      
+    </body>
+  <!-- Libs -->
+  <script src="js/angular.min.js"></script>
+  <script src="js/angular-route.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/angular-ui-notification.min.js"></script>
+  <script src="app/app.js"></script>
+</html>
+
